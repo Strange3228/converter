@@ -9,11 +9,20 @@ import { uahCurrencyService } from './services/uahcurrency.service';
 })
 export class AppComponent implements OnInit {
   title = 'convertor';
-  uahCurrency: Iuahcurrency;
+  uahCurrency: Iuahcurrency = {
+    motd: {
+      msg: '',
+      url: '',
+    },
+    success: true,
+    base: '',
+    date: '',
+    rates: {},
+  };
   currentCurrencyName: string = 'USD';
   currentCurrencyToName: string = 'EUR';
   currentCurrencyVal: Iuahcurrency;
-  multiplier: any;
+  multiplier: any = 'Loading...';
 
   constructor(private uahCurrencyService: uahCurrencyService) {}
 

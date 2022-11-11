@@ -1,6 +1,14 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { Iuahcurrency } from 'src/app/models/uahcurrencyI';
-import { currencies } from 'src/app/data/uahcurrency';
+import { currencies } from 'src/app/data/currencies';
 import { EmailValidator } from '@angular/forms';
 
 @Component({
@@ -8,10 +16,10 @@ import { EmailValidator } from '@angular/forms';
   templateUrl: './convertor.component.html',
   styleUrls: ['./convertor.component.scss'],
 })
-export class ConvertorComponent implements OnInit {
+export class ConvertorComponent implements OnChanges, OnInit {
   @Input() currentCurrencyName: string;
   @Input() currentCurrencyVal: Iuahcurrency;
-  @Input() multiplier: string = 'Loading...';
+  @Input() multiplier: string;
   @Input() currentCurrencyToName: string;
 
   @Output() newCurrency = new EventEmitter<any>();
@@ -20,33 +28,34 @@ export class ConvertorComponent implements OnInit {
   currencies: any = currencies;
   firstValue: any = 1;
   secondValue: any = 1;
+  firstCurrentValue: any = 1;
 
-  ngOnInit(): void {
-    setTimeout(() => {
-      let res: any = 1 * parseFloat(this.multiplier);
-      this.secondValue = parseFloat(res).toFixed(2);
-    }, 500);
-    console.log(this.firstValue);
+  ngOnInit() {
+    this.currentCurrencyName = 'USD';
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (typeof changes['multiplier'] != 'undefined') {
+      if (
+        changes['multiplier'].previousValue !=
+        changes['multiplier'].currentValue
+      ) {
+        this.resetSecondInput(this.firstCurrentValue);
+      }
+    }
   }
 
   OnCurrencySelected(val: string, firstInputval: string) {
-    this.newCurrency.emit(val);
     this.secondValue = 'Loading...';
-    setTimeout(() => {
-      let res: any = parseFloat(firstInputval) * parseFloat(this.multiplier);
-      this.secondValue = parseFloat(res).toFixed(2);
-    }, 500);
+    this.newCurrency.emit(val);
   }
   OnCurrencyToSelected(val: string, firstInputval: string): void {
-    this.newCurrencyTo.emit(val);
     this.secondValue = 'Loading...';
-    setTimeout(() => {
-      let res: any = parseFloat(firstInputval) * parseFloat(this.multiplier);
-      this.secondValue = parseFloat(res).toFixed(2);
-    }, 500);
+    this.newCurrencyTo.emit(val);
   }
 
   CalculateTo(val: string) {
+    this.firstCurrentValue = val;
     if (val) {
       let res: any = parseFloat(val) * parseFloat(this.multiplier);
       this.secondValue = parseFloat(res).toFixed(2);
@@ -61,5 +70,10 @@ export class ConvertorComponent implements OnInit {
     } else {
       this.firstValue = '';
     }
+  }
+
+  resetSecondInput(firstInputval: string): void {
+    let res: any = parseFloat(firstInputval) * parseFloat(this.multiplier);
+    this.secondValue = parseFloat(res).toFixed(2);
   }
 }
