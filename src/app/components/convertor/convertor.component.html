@@ -1,0 +1,72 @@
+<div class="convertor flex pt-10">
+  <div
+    class="convertor__wrapp flex flex-col lg:flex-row gap-6 lg:gap-16 items-center justify-center m-auto max-w-full relative"
+  >
+    <div
+      class="convertor__block max-w-full rounded-xl shadow-2xl p-6 sm:p-10 convertor__block--left flex flex-row"
+    >
+      <select
+        name="currentCurrency"
+        class="font-bold w-16 rounded rounded-tr-none rounded-br-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        #currentCurrencySelect
+        (change)="
+          OnCurrencySelected(currentCurrencySelect.value, firstCurValue.value)
+        "
+      >
+        <option
+          *ngFor="let currency of currencies"
+          value="{{ currency }}"
+          [selected]="currency === currentCurrencyName"
+        >
+          {{ currency }}
+        </option>
+      </select>
+      <input
+        #firstCurValue
+        (keyup)="CalculateTo(firstCurValue.value)"
+        class="w-40 border text-center rounded rounded-tl-none rounded-bl-none outline-none"
+        type="text"
+        value="{{ firstValue }}"
+      />
+    </div>
+    <div class="flex flex-col items-center">
+      <p
+        class="absolute bottom-full left-1/2 -translate-x-1/2 lg:-translate-y-20 text-lg lg:text-3xl text-white font-bold whitespace-nowrap"
+      >
+        1 {{ currentCurrencySelect.value }} = {{ multiplier }}
+        {{ currentCurrencyToSelect.value }}
+      </p>
+      <img src="../../../assets/img/arrows.svg" alt="" class="h-16 mx-10" />
+    </div>
+    <div
+      class="convertor__block max-w-full convertor__block--right convertor__block rounded-xl shadow-2xl p-6 sm:p-10 convertor__block--left flex flex-row-reverse"
+    >
+      <select
+        name="currentCurrency"
+        #currentCurrencyToSelect
+        (change)="
+          OnCurrencyToSelected(
+            currentCurrencyToSelect.value,
+            firstCurValue.value
+          )
+        "
+        class="font-bold w-16 rounded-tl-none rounded-bl-none text-right bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      >
+        <option
+          *ngFor="let currency of currencies"
+          value="{{ currency }}"
+          [selected]="currency === currentCurrencyToName"
+        >
+          {{ currency }}
+        </option>
+      </select>
+      <input
+        #secondCurValue
+        (keyup)="CalculateFrom(secondCurValue.value)"
+        class="w-40 border text-center rounded rounded-tr-none rounded-br-none outline-none"
+        type="text"
+        value="{{ secondValue }}"
+      />
+    </div>
+  </div>
+</div>

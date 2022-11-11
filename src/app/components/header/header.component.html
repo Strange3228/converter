@@ -1,0 +1,33 @@
+<header class="w-full px-6 py-4 header">
+  <div
+    class="container flex flex-row justify-between items-center w-full max-w-7xl mx-auto h-16"
+  >
+    <div
+      class="logo fixed bottom-4 left-1/2 -translate-x-1/2 sm:-translate-x-0 sm:left-0 sm:bottom-0 sm:relative whitespace-nowrap"
+    >
+      <p class="text-xl text-white">
+        Maksym <span class="font-bold">Kutaseivich</span>
+      </p>
+    </div>
+    <div
+      class="currencies flex flex-row justify-between sm:justify-end sm:gap-4 w-full"
+    >
+      <div class="currency flex flex-row items-center mr-10">
+        <img class="h-10 mr-3" src="../../../assets/img/icons-usa.png" alt="" />
+        <input
+          type="text"
+          value="{{ 1 / uahCurrency.rates['USD'] | number: '2.2-3' }}"
+          class="border w-14 text-center rounded"
+        />
+      </div>
+      <div class="currency flex flex-row items-center">
+        <img class="h-10 mr-3" src="../../../assets/img/icons-eur.png" alt="" />
+        <input
+          type="text"
+          value="{{ 1 / uahCurrency.rates['EUR'] | number: '2.2-3' }}"
+          class="border w-14 text-center rounded"
+        />
+      </div>
+    </div>
+  </div>
+</header>

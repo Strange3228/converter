@@ -1,0 +1,15 @@
+.convertor {
+  min-height: calc(100vh - 96px);
+  background-color: #064663;
+  .convertor__wrapp {
+    input {
+      background-color: #eff5f5;
+    }
+    .convertor__block {
+      background-color: #ecb365;
+      -webkit-box-shadow: 0px 0px 94px 17px rgba(235, 100, 64, 0.5);
+      -moz-box-shadow: 0px 0px 94px 17px rgba(235, 100, 64, 0.5);
+      box-shadow: 0px 0px 94px 17px rgba(235, 100, 64, 0.5);
+    }
+  }
+}
