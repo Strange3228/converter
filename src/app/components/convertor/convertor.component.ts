@@ -16,7 +16,7 @@ import { EmailValidator } from '@angular/forms';
   templateUrl: './convertor.component.html',
   styleUrls: ['./convertor.component.scss'],
 })
-export class ConvertorComponent implements OnChanges, OnInit {
+export class ConvertorComponent implements OnChanges {
   @Input() currentCurrencyName: string;
   @Input() currentCurrencyVal: Iuahcurrency;
   @Input() multiplier: string;
@@ -29,10 +29,6 @@ export class ConvertorComponent implements OnChanges, OnInit {
   firstValue: any = 1;
   secondValue: any = 1;
   firstCurrentValue: any = 1;
-
-  ngOnInit() {
-    this.currentCurrencyName = 'USD';
-  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (typeof changes['multiplier'] != 'undefined') {
